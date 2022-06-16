@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../Card/Card';
 import pokemon from 'pokemontcgsdk';
 
+var buttonOp = {display: 'block'};
 var pageN = 1;
 const token = '0df16f92-c92c-4a6b-b91f-07b8e1ae60c1';
 // const callAPI = `https://api.pokemontcg.io/v2/cards?q=name:clefairy&pageSize=30&orderBy=-set.releaseDate`;
@@ -12,8 +13,6 @@ const Homepage = () => {
 
   const [cards, setCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [nextPage, setNextPage] = useState([]);
-  const [prevPage, setPrevPage] = useState([]);
 
   useEffect(() => {
 
@@ -31,12 +30,6 @@ const Homepage = () => {
     pokemon.configure({apiKey: token})
     pokemon.card.where({ q: `name:${searchTerm}`, pageSize: 30, page: pageN, orderBy: '-set.releaseDate' })
     .then(res => {console.log(res); setCards(res.data)});
-
-    // axios.get(callAPIsearch + searchTerm, { headers: { 'X-Api-Key': token } })
-    // .then(res => { console.log(res); setCards(res.data.data); })
-    // .catch((error) => { console.log('error -' + error)});
-
-    // setSearchTerm('');
 
   };
 
@@ -63,7 +56,10 @@ const Homepage = () => {
     pokemon.card.where({ q: `name:${searchTerm}`, pageSize: 30, page: pageN, orderBy: '-set.releaseDate' })
     .then(res => {console.log(res); setCards(res.data)});
 
-
+    if (pageN === 1) {
+      buttonOp = {display: 'none'};
+    }
+    
   }
 
   
@@ -91,7 +87,7 @@ const Homepage = () => {
       </div>
 
       <div className='button-container'>
-        <button className='previous-button' type='submit' onClick={handlePrevButtonPress} >PREV</button>
+        <button className='previous-button' type='submit' style={buttonOp} onClick={handlePrevButtonPress} >PREV</button>
         <button className='next-button' type='submit' onClick={handleNextButtonPress} >NEXT</button>
       </div>
 

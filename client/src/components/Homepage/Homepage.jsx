@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../Card/Card';
-import axios from 'axios';
+import pokemon from 'pokemontcgsdk';
 
+var pageN = 1;
 const token = '0df16f92-c92c-4a6b-b91f-07b8e1ae60c1';
-const callAPI = `https://api.pokemontcg.io/v2/cards?q=name:clefairy&pageSize=30&orderBy=-set.releaseDate`;
-const callAPIsearch = `https://api.pokemontcg.io/v2/cards?pageSize=30&orderBy=-set.releaseDate&q=name:`;
+// const callAPI = `https://api.pokemontcg.io/v2/cards?q=name:clefairy&pageSize=30&orderBy=-set.releaseDate`;
+// const callAPIsearch = `https://api.pokemontcg.io/v2/cards?pageSize=30&orderBy=-set.releaseDate&q=name:`;
 
 
 const Homepage = () => {
@@ -16,23 +17,26 @@ const Homepage = () => {
 
   useEffect(() => {
 
+    pageN = 1;
+    pokemon.configure({apiKey: token})
+    pokemon.card.where({ q: `name:clefairy`, pageSize: 30, page: pageN, orderBy: '-set.releaseDate' })
+    .then(res => {console.log(res); setCards(res.data)});
 
-    axios.get(callAPI, { headers: { 'X-Api-Key': token } })
-      .then(res => { console.log(res); setCards(res.data.data) })
-      .catch((error) => { console.log('error -' + error) });
-
-    
   }, []);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
+    pageN = 1;
+    pokemon.configure({apiKey: token})
+    pokemon.card.where({ q: `name:${searchTerm}`, pageSize: 30, page: pageN, orderBy: '-set.releaseDate' })
+    .then(res => {console.log(res); setCards(res.data)});
 
-    axios.get(callAPIsearch + searchTerm, { headers: { 'X-Api-Key': token } })
-    .then(res => { console.log(res); setCards(res.data.data); })
-    .catch((error) => { console.log('error -' + error)});
+    // axios.get(callAPIsearch + searchTerm, { headers: { 'X-Api-Key': token } })
+    // .then(res => { console.log(res); setCards(res.data.data); })
+    // .catch((error) => { console.log('error -' + error)});
 
-    setSearchTerm('');
+    // setSearchTerm('');
 
   };
 
@@ -43,18 +47,21 @@ const Homepage = () => {
   const handleNextButtonPress = (e) => {
     e.preventDefault();
 
-    axios.get(callAPIsearch + searchTerm, { headers: { 'X-Api-Key': token } })
-    .then(res => { console.log(res); setCards(res.data.data); setNextPage(res.data.data) })
-    .catch((error) => { console.log('error -' + error)});
+    pageN++;
+    pokemon.configure({apiKey: token})
+    pokemon.card.where({ q: `name:${searchTerm}`, pageSize: 30, page: pageN, orderBy: '-set.releaseDate' })
+    .then(res => {console.log(res); setCards(res.data)});
+
 
   }
 
   const handlePrevButtonPress = (e) => {
     e.preventDefault();
 
-    axios.get(callAPIsearch + searchTerm, { headers: { 'X-Api-Key': token } })
-    .then(res => { console.log(res); setCards(res.data.data); })
-    .catch((error) => { console.log('error -' + error)});
+    pageN--;
+    pokemon.configure({apiKey: token})
+    pokemon.card.where({ q: `name:${searchTerm}`, pageSize: 30, page: pageN, orderBy: '-set.releaseDate' })
+    .then(res => {console.log(res); setCards(res.data)});
 
 
   }

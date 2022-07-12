@@ -1,10 +1,11 @@
 import React from 'react';
+import ModalImage from 'react-modal-image';
 
 
 const Card = ({ name, images }) => (
     <>
         <div className="card">
-            <img src={images.small} alt={name} />
+            <ModalImage small={images.small} alt={name} large={images.large} />
         </div>
     </>
 );

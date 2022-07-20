@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/pkmn-tcg-website/static/css/main.5431fa42.css",
+    "main.js": "/pkmn-tcg-website/static/js/main.0948e839.js",
+    "static/js/787.e0763230.chunk.js": "/pkmn-tcg-website/static/js/787.e0763230.chunk.js",
+    "static/media/PokemonGb-RAeo.ttf": "/pkmn-tcg-website/static/media/PokemonGb-RAeo.6211ee48ea626f34681e.ttf",
+    "index.html": "/pkmn-tcg-website/index.html",
+    "main.5431fa42.css.map": "/pkmn-tcg-website/static/css/main.5431fa42.css.map",
+    "main.0948e839.js.map": "/pkmn-tcg-website/static/js/main.0948e839.js.map",
+    "787.e0763230.chunk.js.map": "/pkmn-tcg-website/static/js/787.e0763230.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5431fa42.css",
+    "static/js/main.0948e839.js"
+  ]
+}

@@ -8,8 +8,6 @@ var buttonPrevOp = {display: 'none'};
 var helloOp = {display: 'block'};
 var pageN = 1;
 const token = '0df16f92-c92c-4a6b-b91f-07b8e1ae60c1';
-// const callAPI = `https://api.pokemontcg.io/v2/cards?q=name:clefairy&pageSize=30&orderBy=-set.releaseDate`;
-// const callAPIsearch = `https://api.pokemontcg.io/v2/cards?pageSize=30&orderBy=-set.releaseDate&q=name:`;
 
 
 const Homepage = () => {
@@ -20,7 +18,7 @@ const Homepage = () => {
   function accessAPI(name) {
     pokemon.configure({apiKey: token})
     pokemon.card.where({ q: `name:${name}*`, pageSize: 12, page: pageN, orderBy: '-set.releaseDate,-number' })
-    .then(res => {console.log(res); setCards(res.data); nextData = res;});
+    .then(res => {setCards(res.data); nextData = res;});
   }
 
   function nextButtonFunction() {
@@ -59,9 +57,6 @@ const Homepage = () => {
     e.preventDefault();
     pageN = 1;
     accessAPI(searchTerm);
-    
-    // prevButtonFunction();
-    // nextButtonFunction();
   };
 
   const handleOnChange = (e) => {
@@ -75,8 +70,6 @@ const Homepage = () => {
 
     pageN++;
     accessAPI(searchTerm);
-    // prevButtonFunction();
-    // nextButtonFunction();
   }
 
   const handlePrevButtonPress = (e) => {
@@ -84,8 +77,6 @@ const Homepage = () => {
 
     pageN--;
     accessAPI(searchTerm);
-    // prevButtonFunction();
-    // nextButtonFunction();
   }
 
   helloOpacityHandler();

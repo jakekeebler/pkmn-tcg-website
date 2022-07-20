@@ -10,7 +10,7 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <Routes>
-          <Route path="/" element={<Homepage/>} />
+          <Route path="/pkmn-tcg-website/" element={<Homepage/>} />
         </Routes>
       </BrowserRouter>
     </>
